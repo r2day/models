@@ -36,9 +36,28 @@ type Model struct {
 	Phone string `json:"phone"`
 	// 更多信息
 	// 账号名称
-	Name string `json:"name"`
+	Nickname string     `json:"nickname"`
+	Avatar   string     `json:"avatar"`
+	Member   MemberInfo `json:"member" bson:"member"`
+	Assets   AssetsInfo `json:"assets" bson:"assets"`
 }
 
 type ExternalInfo struct {
 	OpenID string `json:"open_id"  bson:"open_id"`
+}
+
+type MemberInfo struct {
+	MemberLevel int    `json:"member_level"`
+	CardName    string `json:"card_name" bson:"card_name"`
+	CardUrl     string `json:"cardUrl"`
+}
+
+type AssetsInfo struct {
+	PointNum     int `json:"pointNum"`
+	CouponNum    int `json:"couponNum"`
+	Balance      int `json:"balance"`
+	GiftBalance  int `json:"giftBalance"`
+	CurrentValue int `json:"currentValue"`
+	Level        int `json:"level"`
+	NeedValue    int `json:"needValue"`
 }
