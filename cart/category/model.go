@@ -1,7 +1,7 @@
-package config
+package category
 
 import (
-	"github.com/r2day/models"
+	"github.com/r2day/auth"
 	"go.mongodb.org/mongo-driver/bson/primitive"
 )
 
@@ -9,10 +9,10 @@ const (
 	// CollectionNamePrefix 数据库表前缀
 	// 可以根据具体业务的需要进行定义
 	// 例如: sys_, scm_, customer_, order_ 等
-	collectionNamePrefix = "affiliate_"
+	collectionNamePrefix = "auth_"
 	// CollectionNameSuffix 后缀
 	// 例如, _log, _config, _flow,
-	collectionNameSuffix = "_info"
+	collectionNameSuffix = "_category"
 	// 这个需要用户根据具体业务完成设定
 	modelName = "account"
 )
@@ -29,36 +29,11 @@ type Model struct {
 	// 创建时（用户上传的数据为空，所以默认可以不传该值)
 	ID primitive.ObjectID `json:"id" bson:"_id,omitempty"`
 	// 基本的数据库模型字段，一般情况所有model都应该包含如下字段
-	Meta models.MetaModel `json:"meta" bson:"meta"`
-	// 第三方账号信息
-	External ExternalInfo `json:"external" bson:"external"`
-	// 手机号
-	Phone string `json:"phone"`
-	// 更多信息
-	// 账号名称
-	Nickname string     `json:"nickname"`
-	Avatar   string     `json:"avatar"`
-	Member   MemberInfo `json:"member" bson:"member"`
-	Assets   AssetsInfo `json:"assets" bson:"assets"`
-}
-
-type ExternalInfo struct {
-	OpenID string `json:"open_id"  bson:"open_id"`
-}
-
-type MemberInfo struct {
-	Level    int    `json:"level"`
-	Gender   int    `json:"gender"`
-	Birthday string `json:"birthday"`
-	CardName string `json:"card_name" bson:"card_name"`
-	CardUrl  string `json:"cardUrl"`
-}
-
-type AssetsInfo struct {
-	PointNum     int     `json:"pointNum"`
-	CouponNum    int     `json:"couponNum"`
-	Balance      float64 `json:"balance"`
-	GiftBalance  int     `json:"giftBalance"`
-	CurrentValue int     `json:"currentValue"`
-	NeedValue    int     `json:"needValue"`
+	Meta auth.MetaModel `json:"meta" bson:"meta"`
+	// 名称
+	Name string `json:"name" bson:"name"`
+	// 描述
+	Desc string `json:"desc" bson:"desc"`
+	// 引用次数
+	Reference uint `json:"reference" bson:"reference"`
 }

@@ -9,12 +9,12 @@ const (
 	// CollectionNamePrefix 数据库表前缀
 	// 可以根据具体业务的需要进行定义
 	// 例如: sys_, scm_, customer_, order_ 等
-	collectionNamePrefix = "affiliate_"
+	collectionNamePrefix = "client_"
 	// CollectionNameSuffix 后缀
 	// 例如, _log, _config, _flow,
-	collectionNameSuffix = "_info"
+	collectionNameSuffix = "_flow"
 	// 这个需要用户根据具体业务完成设定
-	modelName = "account"
+	modelName = "cart"
 )
 
 // 每一个应用表示一个大的模块，通常其子模块是一个个接口
@@ -30,35 +30,38 @@ type Model struct {
 	ID primitive.ObjectID `json:"id" bson:"_id,omitempty"`
 	// 基本的数据库模型字段，一般情况所有model都应该包含如下字段
 	Meta models.MetaModel `json:"meta" bson:"meta"`
-	// 第三方账号信息
-	External ExternalInfo `json:"external" bson:"external"`
-	// 手机号
-	Phone string `json:"phone"`
-	// 更多信息
-	// 账号名称
-	Nickname string     `json:"nickname"`
-	Avatar   string     `json:"avatar"`
-	Member   MemberInfo `json:"member" bson:"member"`
-	Assets   AssetsInfo `json:"assets" bson:"assets"`
+
+	Status           int    `json:"status"`
+	CompletedTime    string `json:"completed_time"`
+	MultiStore       string `json:"multi_store"`
+	ProductionedTime string `json:"productioned_time"`
+	TypeCate         int    `json:"typeCate"`
+	SendStatus       int    `json:"send_status"`
+
+	Items []Item `json:"items"`
 }
 
-type ExternalInfo struct {
-	OpenID string `json:"open_id"  bson:"open_id"`
-}
+//id: good.id,
+//cate_id: cate.id,
+//name: good.name,
+//price: good.price,
+//number: num,
+//image: good.images,
+//use_property: good.use_property,
+//props_text: good.props_text ? good.props_text: '',
+//props: good.props
 
-type MemberInfo struct {
-	Level    int    `json:"level"`
-	Gender   int    `json:"gender"`
-	Birthday string `json:"birthday"`
-	CardName string `json:"card_name" bson:"card_name"`
-	CardUrl  string `json:"cardUrl"`
-}
-
-type AssetsInfo struct {
-	PointNum     int     `json:"pointNum"`
-	CouponNum    int     `json:"couponNum"`
-	Balance      float64 `json:"balance"`
-	GiftBalance  int     `json:"giftBalance"`
-	CurrentValue int     `json:"currentValue"`
-	NeedValue    int     `json:"needValue"`
+type Item struct {
+	ID     int    `json:"id" bson:"id"`
+	CateID string `json:"cate_id"`
+	Name   string `json:"name" bson:"name"`
+	Price  int    `json:"price"`
+	Number int    `json:"number" bson:"number"`
+	Image  string `json:"image"`
+	// 订单是否有属性
+	UseProperty int `json:"use_property"`
+	// 直接显示在订单上的 规格属性
+	PropsText string `json:"props_text"`
+	// 规格编号
+	Props []int `json:"props"`
 }

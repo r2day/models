@@ -9,12 +9,12 @@ const (
 	// CollectionNamePrefix 数据库表前缀
 	// 可以根据具体业务的需要进行定义
 	// 例如: sys_, scm_, customer_, order_ 等
-	collectionNamePrefix = "affiliate_"
+	collectionNamePrefix = "user_"
 	// CollectionNameSuffix 后缀
 	// 例如, _log, _config, _flow,
-	collectionNameSuffix = "_info"
+	collectionNameSuffix = "_config"
 	// 这个需要用户根据具体业务完成设定
-	modelName = "account"
+	modelName = "address"
 )
 
 // 每一个应用表示一个大的模块，通常其子模块是一个个接口
@@ -30,35 +30,26 @@ type Model struct {
 	ID primitive.ObjectID `json:"id" bson:"_id,omitempty"`
 	// 基本的数据库模型字段，一般情况所有model都应该包含如下字段
 	Meta models.MetaModel `json:"meta" bson:"meta"`
-	// 第三方账号信息
-	External ExternalInfo `json:"external" bson:"external"`
-	// 手机号
-	Phone string `json:"phone"`
-	// 更多信息
-	// 账号名称
-	Nickname string     `json:"nickname"`
-	Avatar   string     `json:"avatar"`
-	Member   MemberInfo `json:"member" bson:"member"`
-	Assets   AssetsInfo `json:"assets" bson:"assets"`
+
+	// 收货人
+	AcceptName string `json:"accept_name" bson:"accept_name"`
+	Mobile     string `json:"mobile"`
+	Sex        int    `json:"sex"`
+
+	Address AddressInfo `json:"district"`
+	Inner   bool        `json:"inner"`
+	// 每个用户只能选择一个默认地址
+	IsDefault bool `json:"is_default" bson:"is_default"`
 }
 
-type ExternalInfo struct {
-	OpenID string `json:"open_id"  bson:"open_id"`
-}
-
-type MemberInfo struct {
-	Level    int    `json:"level"`
-	Gender   int    `json:"gender"`
-	Birthday string `json:"birthday"`
-	CardName string `json:"card_name" bson:"card_name"`
-	CardUrl  string `json:"cardUrl"`
-}
-
-type AssetsInfo struct {
-	PointNum     int     `json:"pointNum"`
-	CouponNum    int     `json:"couponNum"`
-	Balance      float64 `json:"balance"`
-	GiftBalance  int     `json:"giftBalance"`
-	CurrentValue int     `json:"currentValue"`
-	NeedValue    int     `json:"needValue"`
+type AddressInfo struct {
+	AreaName   string `json:"area_name" bson:"area_name"`
+	CityName   string `json:"city_name" bson:"city_name"`
+	Poiname    string `json:"poiname" bson:"poiname"`
+	Area       string `json:"area" bson:"area"`
+	City       string `json:"city" bson:"city"`
+	Province   string `json:"province" bson:"province"`
+	Street     string `json:"street"`
+	Lat        string `json:"lat"`
+	DoorNumber string `json:"door_number" bson:"door_number"`
 }
