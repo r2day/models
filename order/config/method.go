@@ -163,6 +163,33 @@ func (m *Model) GetMany(ctx context.Context, ids []string) ([]*Model, error) {
 	return results, nil
 }
 
+// GetAllByAccount 通过账号获得订单
+// getMany	GET http://my.api.url/posts?filter={"ids":[123,456,789]}
+func (m *Model) GetAllByAccount(ctx context.Context, accountId string) ([]*Model, error) {
+	// TODO result using custom struct instead of bson.M
+	// because you should avoid to export something to customers
+	coll := db.MDB.Collection(m.CollectionName())
+	// 绑定查询结果
+	results := make([]*Model, 0)
+	logCtx := log.WithField("accountId", accountId)
+
+	filter := bson.D{{Key: "external.open_id", Value: accountId}}
+	//logCtx := log.WithField("filter", filter)
+
+	cursor, err := coll.Find(ctx, filter)
+
+	if err != nil {
+		logCtx.Error(err)
+		return nil, err
+	}
+
+	if err = cursor.All(ctx, &results); err != nil {
+		logCtx.Error(err)
+		return nil, err
+	}
+	return results, nil
+}
+
 // Update 更新
 // update	PUT http://my.api.url/posts/123
 func (m *Model) Update(ctx context.Context, id string) error {
