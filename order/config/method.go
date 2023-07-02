@@ -173,7 +173,7 @@ func (m *Model) GetAllByAccount(ctx context.Context, accountId string) ([]*Model
 	results := make([]*Model, 0)
 	logCtx := log.WithField("accountId", accountId)
 
-	filter := bson.D{{Key: "external.open_id", Value: accountId}}
+	filter := bson.D{{Key: "meta.account_id", Value: accountId}}
 	//logCtx := log.WithField("filter", filter)
 
 	cursor, err := coll.Find(ctx, filter)
