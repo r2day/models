@@ -148,7 +148,7 @@ func (m *Model) IncrementReference(ctx context.Context, id string) error {
 	m.Meta.UpdatedAt = rtime.FomratTimeAsReader(time.Now().Unix())
 
 	result, err := coll.UpdateOne(ctx, filter,
-		bson.D{{Key: "$set", Value: bson.D{{"reference", 1}}}})
+		bson.D{{Key: "$set", Value: bson.D{{Key: "reference", Value: 1}}}})
 	if err != nil {
 		log.WithField("id", id).Error(err)
 		return err
@@ -171,7 +171,7 @@ func (m *Model) DecrementReference(ctx context.Context, id string) error {
 	m.Meta.UpdatedAt = rtime.FomratTimeAsReader(time.Now().Unix())
 
 	result, err := coll.UpdateOne(ctx, filter,
-		bson.D{{Key: "$set", Value: bson.D{{"reference", -1}}}})
+		bson.D{{Key: "$set", Value: bson.D{{Key: "reference", Value: -1}}}})
 	if err != nil {
 		log.WithField("id", id).Error(err)
 		return err
