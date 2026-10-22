@@ -5,7 +5,7 @@ go 1.26.10
 require (
 	github.com/r2day/auth v0.0.0-20230524045529-d5d6cadbc97f
 	github.com/r2day/base v1.6.7
-	github.com/r2day/rest v0.2.8
+	github.com/r2day/rest v0.3.0
 	github.com/sirupsen/logrus v1.9.2
 	go.mongodb.org/mongo-driver v1.17.7
 )
@@ -27,8 +27,6 @@ require (
 	github.com/modern-go/reflect2 v1.0.2 // indirect
 	github.com/montanaflynn/stats v0.7.1 // indirect
 	github.com/pelletier/go-toml/v2 v2.0.1 // indirect
-	github.com/pkg/errors v0.9.1 // indirect
-	github.com/rabbitmq/amqp091-go v1.14.0 // indirect
 	github.com/ugorji/go/codec v1.2.7 // indirect
 	github.com/xdg-go/pbkdf2 v1.0.0 // indirect
 	github.com/xdg-go/scram v1.1.2 // indirect
@@ -42,5 +40,3 @@ require (
 	google.golang.org/protobuf v1.28.0 // indirect
 	gopkg.in/yaml.v2 v2.4.0 // indirect
 )
-
-replace github.com/r2day/rest => ../rest
